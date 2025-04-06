@@ -10,7 +10,7 @@ function Home({ user }) {
   const handlePost = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/blogs', {
+      await axios.post(`${import.meta.env.VITE_SERVER_APP_URL}/blogs`, {
         title,
         content,
         user_email: user.email,
@@ -29,13 +29,13 @@ function Home({ user }) {
       <nav className="flex justify-between mb-4">
         <h1 className="text-3xl text-white">Home</h1>
         <div>
-          <Link to="/blogs" className="mr-4 text-white ">Blogs</Link>
+          <Link to="/blogs" className="mr-4 text-white">Blogs</Link>
           <Link to="/profile" className="text-white">Profile</Link>
         </div>
       </nav>
       <button
         onClick={() => setShowForm(!showForm)}
-        className="fixed bottom-4 right-4 bg-orange-400 text-white p-4 rounded-full  text-3xl"
+        className="fixed bottom-4 right-4 bg-orange-400 text-white p-4 rounded-full text-3xl"
       >
         +
       </button>

@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login({ setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false); 
+  const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/login', { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_APP_URL}/login`, { email, password });
       setUser({ email, token: res.data.token });
+      navigate('/home'); // Redirect to home after login
     } catch (err) {
       alert(err.response?.data?.msg || 'Login failed');
     }
@@ -19,10 +22,10 @@ function Login({ setUser }) {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/signup', { email, password });
-      alert(res.data.msg); 
-      setIsSignUp(false); 
-      setEmail(''); 
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_APP_URL}/signup`, { email, password });
+      alert(res.data.msg);
+      setIsSignUp(false);
+      setEmail('');
       setPassword('');
     } catch (err) {
       alert(err.response?.data?.msg || 'Sign up failed');
@@ -30,10 +33,7 @@ function Login({ setUser }) {
   };
 
   return (
-    
-    
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
- 
       <div className="bg-gray-400 p-6 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-3xl text-center font-bold text-blue-900 mb-4">
           {isSignUp ? 'Sign Up' : 'Login'}

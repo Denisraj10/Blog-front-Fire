@@ -7,7 +7,7 @@ function Blogs({ user }) {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await axios.get('http://localhost:5000/blogs');
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_APP_URL}/blogs`);
       setBlogs(res.data);
     };
     fetchBlogs();
@@ -24,7 +24,7 @@ function Blogs({ user }) {
       </nav>
       <div className="space-y-4">
         {blogs.map((blog) => (
-          <div key={blog.id} className="bg-white p-4 rounded shadow-md">
+          <div key={blog._id} className="bg-white p-4 rounded shadow-md">
             <h2 className="text-xl">{blog.title}</h2>
             <p>{blog.content}</p>
             <p className="text-sm text-gray-500">Posted by: {blog.user_email}</p>
